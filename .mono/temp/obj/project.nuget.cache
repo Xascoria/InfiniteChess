@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "jqMpaCXUB/Xg/RwC/saYlZLWDguPfCendjJ5EMm2FGF0/0sgMH4FerYPSHI8WQr6t5pSwDSm/dsdgOfdyhJdcQ==",
+  "success": true,
+  "projectFilePath": "D:\\Godot Projects\\InfiniteChess\\InfiniteChess.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\siang\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.2\\microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
+    "C:\\Users\\siang\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.2\\microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

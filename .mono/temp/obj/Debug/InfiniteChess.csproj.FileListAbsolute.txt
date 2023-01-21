@@ -1,0 +1,9 @@
+D:\Godot Projects\InfiniteChess\.mono\temp\bin\Debug\InfiniteChess.dll
+D:\Godot Projects\InfiniteChess\.mono\temp\bin\Debug\InfiniteChess.pdb
+D:\Godot Projects\InfiniteChess\.mono\temp\obj\Debug\InfiniteChess.csproj.AssemblyReference.cache
+D:\Godot Projects\InfiniteChess\.mono\temp\obj\Debug\InfiniteChess.GeneratedMSBuildEditorConfig.editorconfig
+D:\Godot Projects\InfiniteChess\.mono\temp\obj\Debug\InfiniteChess.AssemblyInfoInputs.cache
+D:\Godot Projects\InfiniteChess\.mono\temp\obj\Debug\InfiniteChess.AssemblyInfo.cs
+D:\Godot Projects\InfiniteChess\.mono\temp\obj\Debug\InfiniteChess.csproj.CoreCompileInputs.cache
+D:\Godot Projects\InfiniteChess\.mono\temp\obj\Debug\InfiniteChess.dll
+D:\Godot Projects\InfiniteChess\.mono\temp\obj\Debug\InfiniteChess.pdb

@@ -1,0 +1,22 @@
+[gd_scene format=2]
+
+[node name="Root" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+margin_right = 1280.0
+margin_bottom = 720.0
+
+[node name="Button" type="Button" parent="."]
+margin_left = 512.0
+margin_top = 320.0
+margin_right = 768.0
+margin_bottom = 384.0
+text = "Play Online"
+
+[node name="Button2" type="Button" parent="."]
+margin_left = 512.0
+margin_top = 408.0
+margin_right = 768.0
+margin_bottom = 472.0
+text = "Local Multiplayer"

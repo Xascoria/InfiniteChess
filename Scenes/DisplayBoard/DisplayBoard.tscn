@@ -1,0 +1,252 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Resources/BoardColor.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/DisplayBoard/DisplayBoard.cs" type="Script" id=2]
+[ext_resource path="res://Scenes/DisplayBoard/BoardBG.cs" type="Script" id=3]
+
+[sub_resource type="TileSet" id=1]
+0/name = "Light"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 16, 16 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "Dark"
+1/texture = ExtResource( 1 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 16, 0, 16, 16 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+
+[sub_resource type="DynamicFontData" id=2]
+override_oversampling = 100.0
+font_path = "res://Resources/VCR_OSD_MONO_1.001.ttf"
+
+[sub_resource type="DynamicFont" id=3]
+size = 3
+font_data = SubResource( 2 )
+
+[node name="Root" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="BoardBG" type="TileMap" parent="."]
+scale = Vector2( 4, 4 )
+tile_set = SubResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 1, 0, 7, 1, 0, 65537, 0, 0, 65543, 0, 0, 131072, 0, 0, 131079, 1, 0, 196609, 0, 0, 196615, 0, 0, 262144, 0, 0, 262151, 1, 0, 327681, 0, 0, 327687, 0, 0, 393216, 0, 0, 393223, 1, 0, 458752, 1, 0, 458753, 0, 0, 458754, 1, 0, 458755, 0, 0, 458756, 1, 0, 458757, 0, 0, 458758, 1, 0, 458759, 0, 0 )
+script = ExtResource( 3 )
+
+[node name="BoardTags" type="Node2D" parent="."]
+scale = Vector2( 4, 4 )
+
+[node name="0,0" type="Label" parent="BoardTags"]
+margin_left = 10.25
+margin_top = 12.5
+margin_right = 16.25
+margin_bottom = 16.5
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "0,0"
+align = 1
+
+[node name="0,1" type="Label" parent="BoardTags"]
+margin_left = 10.0
+margin_top = 28.5
+margin_right = 16.0
+margin_bottom = 32.5
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "0,1"
+align = 1
+
+[node name="1,0" type="Label" parent="BoardTags"]
+margin_left = 26.0
+margin_top = 12.5
+margin_right = 32.0
+margin_bottom = 16.5
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "1,0"
+align = 1
+
+[node name="a" type="Label" parent="BoardTags"]
+margin_left = 111.5
+margin_top = 124.5
+margin_right = 115.5
+margin_bottom = 128.5
+custom_colors/font_color = Color( 0.709804, 0.533333, 0.388235, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "A"
+align = 1
+
+[node name="b" type="Label" parent="BoardTags"]
+margin_left = 95.5
+margin_top = 124.5
+margin_right = 99.5
+margin_bottom = 128.5
+custom_colors/font_color = Color( 0.941176, 0.85098, 0.709804, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "B"
+align = 1
+
+[node name="c" type="Label" parent="BoardTags"]
+margin_left = 79.5
+margin_top = 124.5
+margin_right = 83.5
+margin_bottom = 128.5
+custom_colors/font_color = Color( 0.709804, 0.533333, 0.388235, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "C"
+align = 1
+
+[node name="d" type="Label" parent="BoardTags"]
+margin_left = 63.5
+margin_top = 124.5
+margin_right = 67.5
+margin_bottom = 128.5
+custom_colors/font_color = Color( 0.941176, 0.85098, 0.709804, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "D"
+align = 1
+
+[node name="e" type="Label" parent="BoardTags"]
+margin_left = 47.5
+margin_top = 124.5
+margin_right = 51.5
+margin_bottom = 128.5
+custom_colors/font_color = Color( 0.709804, 0.533333, 0.388235, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "E"
+align = 1
+
+[node name="f" type="Label" parent="BoardTags"]
+margin_left = 31.5
+margin_top = 124.5
+margin_right = 35.5
+margin_bottom = 128.5
+custom_colors/font_color = Color( 0.941176, 0.85098, 0.709804, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "F"
+align = 1
+
+[node name="g" type="Label" parent="BoardTags"]
+margin_left = 15.5
+margin_top = 124.5
+margin_right = 19.5
+margin_bottom = 128.5
+custom_colors/font_color = Color( 0.709804, 0.533333, 0.388235, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "G"
+align = 1
+
+[node name="h" type="Label" parent="BoardTags"]
+margin_left = -0.25
+margin_top = 124.75
+margin_right = 3.75
+margin_bottom = 128.75
+custom_colors/font_color = Color( 0.941176, 0.85098, 0.709804, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "H"
+align = 1
+
+[node name="8" type="Label" parent="BoardTags"]
+margin_left = 125.0
+margin_right = 129.0
+margin_bottom = 4.0
+custom_colors/font_color = Color( 0.941176, 0.85098, 0.709804, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "8"
+align = 1
+
+[node name="7" type="Label" parent="BoardTags"]
+margin_left = 124.5
+margin_top = 16.0
+margin_right = 128.5
+margin_bottom = 20.0
+custom_colors/font_color = Color( 0.709804, 0.533333, 0.388235, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "7"
+align = 1
+
+[node name="6" type="Label" parent="BoardTags"]
+margin_left = 124.5
+margin_top = 32.0
+margin_right = 128.5
+margin_bottom = 36.0
+custom_colors/font_color = Color( 0.941176, 0.85098, 0.709804, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "6"
+align = 1
+
+[node name="5" type="Label" parent="BoardTags"]
+margin_left = 124.5
+margin_top = 48.0
+margin_right = 128.5
+margin_bottom = 52.0
+custom_colors/font_color = Color( 0.709804, 0.533333, 0.388235, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "5"
+align = 1
+
+[node name="4" type="Label" parent="BoardTags"]
+margin_left = 124.5
+margin_top = 64.0
+margin_right = 128.5
+margin_bottom = 68.0
+custom_colors/font_color = Color( 0.941176, 0.85098, 0.709804, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "4"
+align = 1
+
+[node name="3" type="Label" parent="BoardTags"]
+margin_left = 124.5
+margin_top = 80.0
+margin_right = 128.5
+margin_bottom = 84.0
+custom_colors/font_color = Color( 0.709804, 0.533333, 0.388235, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "3"
+align = 1
+
+[node name="2" type="Label" parent="BoardTags"]
+margin_left = 124.5
+margin_top = 96.0
+margin_right = 128.5
+margin_bottom = 100.0
+custom_colors/font_color = Color( 0.941176, 0.85098, 0.709804, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "2"
+align = 1
+
+[node name="1" type="Label" parent="BoardTags"]
+margin_left = 124.5
+margin_top = 112.0
+margin_right = 128.5
+margin_bottom = 116.0
+custom_colors/font_color = Color( 0.709804, 0.533333, 0.388235, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "1"
+align = 1
+
+[node name="PieceRoot" type="Node2D" parent="."]
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2( 640, 360 )
+current = true
