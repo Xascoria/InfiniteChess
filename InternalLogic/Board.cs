@@ -125,6 +125,8 @@ public class Board
                     return false;
                 }
 
+                //Castling
+
                 break;
             case Piece.PieceType.Queen:
                 break;
@@ -135,6 +137,7 @@ public class Board
             case Piece.PieceType.Bishop:
                 break;
             case Piece.PieceType.Pawn:
+                //En Passant
                 break;
         }
 
@@ -142,7 +145,7 @@ public class Board
     }
 
     //TODO
-    public void execute_move(Tuple<BigInteger,BigInteger> from, Tuple<BigInteger,BigInteger> to){
+    public void execute_move(Tuple<BigInteger,BigInteger> from, Tuple<BigInteger,BigInteger> to, Piece.PieceType promotion_type){
         var current_piece = current_board[from];
 
         switch(current_piece.GetPieceType())
@@ -176,18 +179,82 @@ public class Board
 
     }
 
-    //TODO
     public bool is_in_check(){
+        foreach (var pair in current_board){
+            if (pair.Value.GetPieceType() == Piece.PieceType.King && pair.Value.GetColor() == getWhosTurn()){
+                return square_is_under_attacked(pair.Key);
+            }
+        }
+
         return false;
     }
 
     //TODO
     public bool is_in_checkmate(){
+        //Moving the King
+        //Blocking
+        //Take Out the Attacker
+
         return false;
     }
 
     //TODO
     public bool square_is_under_attacked(Tuple<BigInteger, BigInteger> coord){
+        var opponent_color = getWhosTurn() == Piece.PieceColor.White ? Piece.PieceColor.Black : Piece.PieceColor.White;
+        var dirs_info = get_eight_dirs_pieces(coord);
+
+        foreach (var trans in new (int,int)[]{(1,1),(-1,1),(1,-1),(-1,-1)}){
+            if (dirs_info.ContainsKey(Tuple.Create(trans.Item1, trans.Item2))){
+                var (piece, neighbour_coord) = dirs_info[Tuple.Create(trans.Item1, trans.Item2)];
+                if (piece.GetColor() == getWhosTurn()){
+                    continue;
+                }
+                //Queen Diagonal and Bishop
+                if (piece.GetPieceType() == Piece.PieceType.Bishop || piece.GetPieceType() == Piece.PieceType.Queen){
+                    return true;
+                }
+                //King Diagonal
+                if (piece.GetPieceType() == Piece.PieceType.King){
+                    if (BigInteger.Abs(coord.Item1 - neighbour_coord.Item1) == 1 && 
+                    BigInteger.Abs(coord.Item2 - neighbour_coord.Item2) == 1) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        foreach (var trans in new (int,int)[]{(1,0),(-1,0),(0,-1),(0,1)}){
+            if (dirs_info.ContainsKey(Tuple.Create(trans.Item1, trans.Item2))){
+                var (piece, neighbour_coord) = dirs_info[Tuple.Create(trans.Item1, trans.Item2)];
+                if (piece.GetColor() == getWhosTurn()){
+                    continue;
+                }
+                //Queen Vertical/Horizontal and Rook
+                if (piece.GetPieceType() == Piece.PieceType.Rook || piece.GetPieceType() == Piece.PieceType.Queen){
+                    return true;
+                }
+                //King Vertical/Horizontal
+                if (piece.GetPieceType() == Piece.PieceType.King){
+                    if (BigInteger.Abs(coord.Item1 - neighbour_coord.Item1) == 1 || 
+                    BigInteger.Abs(coord.Item2 - neighbour_coord.Item2) == 1) {
+                        return true;
+                    }
+                }
+            }
+        }
+        //Knight
+        foreach (var knight_trans in Move.KNIGHT_MOVES){
+            var new_coord = Tuple.Create(coord.Item1 + knight_trans.Item1, coord.Item2 + knight_trans.Item2);
+            if (current_board.ContainsKey(new_coord)){
+                if (current_board[new_coord].GetPieceType() == Piece.PieceType.Knight && 
+                    current_board[new_coord].GetColor() != getWhosTurn()){
+                    return true;
+                }
+            }
+        }
+
+        //Pawn
+
         return false;
     }
 
@@ -202,12 +269,67 @@ public class Board
         return Piece.PieceColor.Black;
     }
     
-    //TODO
     private bool AllowEnPassant(){
         if (moves_stack.Count == 0){
             return false;
         }
-        return true;
+
+        var prev_move = moves_stack[moves_stack.Count-1];
+        if (current_board[prev_move.GetToCoord()].GetPieceType() == Piece.PieceType.Pawn){
+            if (Math.Abs((int) (prev_move.GetToCoord().Item2 - prev_move.GetFromCoord().Item2)) == 2){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    //Return
+    //Direction: Piece, Coord
+    private Dictionary<Tuple<int,int>, Tuple<Piece, Tuple<BigInteger, BigInteger>>> get_eight_dirs_pieces(Tuple<BigInteger, BigInteger> square_coord){
+        var temp_dist_dict = new Dictionary<Tuple<int,int>, Tuple<BigInteger, Piece, Tuple<BigInteger, BigInteger>>>();
+
+        foreach (var cur_piece in current_board){
+            if (cur_piece.Key == square_coord){
+                continue;
+            }
+
+            var DisX = BigInteger.Abs(cur_piece.Key.Item1 - square_coord.Item1);
+            var DisY = BigInteger.Abs(cur_piece.Key.Item2 - square_coord.Item2);
+
+            if (DisX == DisY || DisX == 0 || DisY == 0){
+                var x_change = (int)
+                BigInteger.Max(
+                    BigInteger.Min(
+                        cur_piece.Key.Item1 - square_coord.Item1, 
+                        new BigInteger(1))
+                    , new BigInteger(-1));
+                var y_change = (int)
+                BigInteger.Max(
+                    BigInteger.Min(
+                        cur_piece.Key.Item2 - square_coord.Item2, 
+                        new BigInteger(1))
+                    , new BigInteger(-1));
+
+                var dist = BigInteger.Max(DisX, DisY);
+                if (temp_dist_dict.ContainsKey( Tuple.Create<int, int>(x_change, y_change) )){
+                    if (dist < temp_dist_dict[Tuple.Create<int, int>(x_change, y_change)].Item1){
+                        temp_dist_dict[Tuple.Create<int, int>(x_change, y_change)] = 
+                            Tuple.Create(dist, cur_piece.Value, cur_piece.Key);
+                    }
+                } else {
+                    temp_dist_dict[Tuple.Create<int, int>(x_change, y_change)] = 
+                        Tuple.Create(dist, cur_piece.Value, cur_piece.Key);
+                }
+            }
+        }
+
+        var output = new Dictionary<Tuple<int,int>, Tuple<Piece, Tuple<BigInteger, BigInteger>>>();
+        foreach (var pair in temp_dist_dict){
+            output[pair.Key] = Tuple.Create(pair.Value.Item2, pair.Value.Item3);
+        }
+
+        return output;
     }
 
 }

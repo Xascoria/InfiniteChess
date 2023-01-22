@@ -1,12 +1,25 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 public class Move {
     private bool disrupted_left_cast = false;
     private bool disrupted_right_cast = false;
     private bool is_promotion = false;
+    private bool is_capture = false;
     private bool is_en_passant = false;
+    private bool is_castling = false;
+    private Tuple<BigInteger,BigInteger> from_coord;
+    private Tuple<BigInteger,BigInteger> to_coord;
+
+    public Tuple<BigInteger,BigInteger> GetFromCoord(){
+        return from_coord;
+    }
+
+    public Tuple<BigInteger,BigInteger> GetToCoord(){
+        return to_coord;
+    }
 
     public static readonly Tuple<int,int>[] KNIGHT_MOVES = new Tuple<int,int>[]{
         Tuple.Create<int,int>(1,2),
@@ -31,6 +44,16 @@ public class Move {
         Tuple.Create<int,int>(-1,0),
         Tuple.Create<int,int>(0,-1),
         Tuple.Create<int,int>(0,1),
+    };
+
+    public static readonly Tuple<int,int>[] WHITE_PAWN_ATTACKS = new Tuple<int,int>[]{
+        Tuple.Create<int,int>(1,1),
+        Tuple.Create<int,int>(-1,1),
+    };
+
+    public static readonly Tuple<int,int>[] BLACK_PAWN_ATTACKS = new Tuple<int,int>[]{
+        Tuple.Create<int,int>(1,1),
+        Tuple.Create<int,int>(-1,1),
     };
 
     //Hard Coded for Castling Check
